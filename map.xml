@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="ru.PassengerEntity" table="passenger" schema="taxi">
+        <id name="passengerId">
+            <column name="Passenger_id" sql-type="int(10) unsigned"/>
+        </id>
+        <property name="zakazId">
+            <column name="Zakaz_id" sql-type="int(10) unsigned"/>
+        </property>
+        <property name="passengerName">
+            <column name="passenger_name" sql-type="varchar(255)" not-null="true"/>
+        </property>
+    </class>
+    <class name="ru.TaxiEntity" table="taxi" schema="taxi">
+        <id name="taxiId">
+            <column name="Taxi_id" sql-type="int(10) unsigned"/>
+        </id>
+        <property name="zakazId">
+            <column name="Zakaz_id" sql-type="int(10) unsigned"/>
+        </property>
+        <property name="car">
+            <column name="car" sql-type="varchar(255)" not-null="true"/>
+        </property>
+    </class>
+    <class name="ru.ZakazEntity" table="zakaz" schema="taxi">
+        <id name="zakazId">
+            <column name="Zakaz_id" sql-type="int(10) unsigned"/>
+        </id>
+        <property name="comments">
+            <column name="comments" sql-type="varchar(255)"/>
+        </property>
+        <many-to-one name="taxiByZakazPId" class="ru.TaxiEntity">
+            <column name="ZakazP_id"/>
+        </many-to-one>
+        <many-to-one name="passengerByZakazTId" class="ru.PassengerEntity">
+            <column name="ZakazT_id"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
